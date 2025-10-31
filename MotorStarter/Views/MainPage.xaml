@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MotorStarter.Views.MainPage"
+             Title="Motor Starter">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20">
+            <Label Text="Motor Starter" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center" />
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
+
+            <Frame BackgroundColor="{StaticResource SurfaceVariant}" Padding="16" CornerRadius="16">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Current Status" Opacity="0.8" />
+                    <Label Text="{Binding CurrentStatus}" FontSize="24" FontAttributes="Bold" TextColor="{Binding CurrentStatus, Converter={StaticResource MotorStatusToColorConverter}}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Picker Title="Select User"
+                    ItemsSource="{Binding Users}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedUser}" />
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                <Button Text="Start" Command="{Binding StartCommand}" Grid.Row="0" Grid.Column="0" BackgroundColor="{StaticResource PrimaryColor}" />
+                <Button Text="Stop" Command="{Binding StopCommand}" Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource ErrorColor}" />
+                <Button Text="Status" Command="{Binding StatusCommand}" Grid.Row="1" Grid.Column="0" />
+                <Button Text="Add User" Command="{Binding AddUserCommand}" Grid.Row="1" Grid.Column="1" />
+            </Grid>
+
+            <Frame BackgroundColor="{StaticResource SurfaceVariant}" Padding="16" CornerRadius="16">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Schedule Automation" FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12" RowSpacing="12">
+                        <DatePicker Date="{Binding ScheduleDate}" />
+                        <TimePicker Time="{Binding ScheduleTime}" Grid.Column="1" />
+                        <Picker Grid.Row="1" Grid.ColumnSpan="2" Title="Action" ItemsSource="{Binding ScheduleActions}" SelectedItem="{Binding SelectedScheduleAction}" />
+                    </Grid>
+                    <Button Text="Schedule" Command="{Binding ScheduleCommand}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Label Text="Activity History" FontAttributes="Bold" />
+
+            <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
+                <CollectionView ItemsSource="{Binding Logs}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="12" Margin="0,0,0,12" BackgroundColor="{StaticResource SurfaceVariant}" CornerRadius="12">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Timestamp, StringFormat='{0:G}'}" FontSize="12" Opacity="0.7" />
+                                    <Label Text="{Binding ActionType}" FontAttributes="Bold" />
+                                    <Label Text="{Binding Message}" />
+                                    <Label Text="{Binding Response}" FontAttributes="Italic" Opacity="0.8" />
+                                    <Label Text="{Binding UserName}" FontSize="12" Opacity="0.6" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <Label Text="Smart Notifications"
+                   FontAttributes="Bold" />
+            <Label Text="Notifications are generated automatically when responses indicate errors or when SMS commands fail." FontSize="12" Opacity="0.7" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
