@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Color x:Key="PrimaryColor">#2ecc71</Color>
+    <Color x:Key="PrimaryDarkColor">#27ae60</Color>
+    <Color x:Key="AccentColor">#3498db</Color>
+    <Color x:Key="SurfaceColor">#1e1e1e</Color>
+    <Color x:Key="SurfaceVariant">#2c3e50</Color>
+    <Color x:Key="ErrorColor">#e74c3c</Color>
+    <Color x:Key="TextPrimaryColor">#ffffff</Color>
+    <Color x:Key="TextSecondaryColor">#bdc3c7</Color>
+</ResourceDictionary>
